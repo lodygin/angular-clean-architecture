@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { plainToInstance } from 'class-transformer';
 import { PostRepository } from '../../application/repositories/post.repository';
 import { Post } from '../../domain/post';
 import { GetPostDto } from '../dtos/get-post.dto';
+import { ClassTransformerUtil } from '../../shared/utils/class-transformer.util';
 
 @Injectable()
 export class PostRestService implements PostRepository {
@@ -13,7 +13,7 @@ export class PostRestService implements PostRepository {
   public getById(id: string): Observable<Post> {
     return this.http
       .get<GetPostDto>(`posts/${id}`)
-      .pipe(map((dto) => plainToInstance(Post, dto)));
+      .pipe(map(dto => ClassTransformerUtil.plainToInstance(Post, dto)));
   }
 
   public delete(id: string): Observable<void> {
@@ -23,6 +23,6 @@ export class PostRestService implements PostRepository {
   public getAll(): Observable<Post[]> {
     return this.http
       .get<GetPostDto[]>('posts')
-      .pipe(map((dto) => plainToInstance(Post, dto)));
+      .pipe(map(dto => ClassTransformerUtil.plainToInstance(Post, dto)));
   }
 }

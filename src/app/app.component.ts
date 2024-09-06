@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { getAllPostsAction } from '../application/actions/get-all-posts.action';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +10,10 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'angular-clean-architecture';
+export class AppComponent implements OnInit {
+  private readonly store = inject(Store);
+
+  public ngOnInit(): void {
+    this.store.dispatch(getAllPostsAction());
+  }
 }

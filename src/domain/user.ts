@@ -1,22 +1,10 @@
-import { Expose } from 'class-transformer';
+import { Transform } from 'class-transformer';
 
 export class User {
-  @Expose()
-  public id: string;
+  @Transform(({ value }) => value.toString(), { toClassOnly: true })
+  public id!: string;
 
-  @Expose()
-  public name: string;
-
-  @Expose()
-  public email: string;
-
-  @Expose()
-  public phone: string;
-
-  constructor(id: string, name: string, email: string, phone: string) {
-    this.id = id;
-    this.name = name;
-    this.email = email;
-    this.phone = phone;
-  }
+  public name!: string;
+  public email!: string;
+  public phone!: string;
 }

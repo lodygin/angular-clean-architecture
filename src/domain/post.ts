@@ -1,22 +1,12 @@
-import { Expose } from 'class-transformer';
+import { Transform } from 'class-transformer';
 
 export class Post {
-  @Expose()
-  public id: string;
+  @Transform(({ value }) => value.toString(), { toClassOnly: true })
+  public id!: string;
 
-  @Expose()
-  public userId: string;
+  @Transform(({ value }) => value.toString(), { toClassOnly: true })
+  public userId!: string;
 
-  @Expose()
-  public title: string;
-
-  @Expose()
-  public body: string;
-
-  constructor(id: string, userId: string, title: string, body: string) {
-    this.id = id;
-    this.userId = userId;
-    this.title = title;
-    this.body = body;
-  }
+  public title!: string;
+  public body!: string;
 }
